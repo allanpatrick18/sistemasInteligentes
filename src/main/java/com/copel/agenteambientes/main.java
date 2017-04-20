@@ -74,6 +74,7 @@ public class main {
 //             colunm = in.readLine();
         colunm = "0";
         ambiente.colocarAgente(Integer.parseInt(line), Integer.parseInt(colunm));
+
         System.out.println("Set objetivo posiçao");
         System.out.println("Line");
         line = "2";
@@ -82,7 +83,9 @@ public class main {
 //             colunm = in.readLine();
         colunm = "2";
         ambiente.colocarObjetivo(Integer.parseInt(line), Integer.parseInt(colunm));
+
         Agente agente = new Agente(ambiente.getEspaco());
+        agente.setPosicaoObjetivo(Integer.parseInt(line), Integer.parseInt(colunm));
         Vector<Integer> k = new Vector();
         int i = 0;
         while (true) {
@@ -91,16 +94,15 @@ public class main {
             if (tmp.equals("n")) {
                 break;
             }
-
             k.add(i, Integer.parseInt(tmp));
             i++;
         }
         agente.setWay(k);
-        while (agente.getWay().size() > 0) {
+        while (agente.verificaObjetivo()) {
             agente.cicloDeRaciocinio();
-           ambiente.printMatrix();
-
+            ambiente.printMatrix();
         }
+        agente.cicloDeRaciocinio();
 
     }
 

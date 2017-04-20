@@ -69,10 +69,12 @@ public class Ambiente {
         lerPosicaoAmbiente();
         int maxLine = espaco.length;
         int maxColunm = espaco[0].length;
-     if(objetivo()){
+
         if (x == 1) {
             if (line - 1 >= 0 && colunm - 1 >= 0) {
                 if (!espaco[line - 1][colunm - 1].equals("x")) {
+                     if (espaco[line - 1][colunm - 1].equals("0"))
+                         
                     espaco[line - 1][colunm - 1] = "A";
                     espaco[line][colunm] = "_";
                 }
@@ -140,8 +142,8 @@ public class Ambiente {
                 }
             }
         }
-     }
-        printMatrix();
+     
+    
     }
 
     public void executaPlano() {

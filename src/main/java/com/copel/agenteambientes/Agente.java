@@ -23,6 +23,8 @@ public class Agente {
     private int[] actionPlan;
     private Vector<Integer> way;
     public List<Integer> acoes;
+    public int columnObjectivo;
+    public int lineObjetivo;
 
     public Agente(String[][] repreAmbiente) {
         this.repreAmbiente = repreAmbiente;
@@ -34,15 +36,18 @@ public class Agente {
 
         int maxLine = repreAmbiente.length;
         int maxColunm = repreAmbiente[0].length;
-
-        if (!repreAmbiente[line][colunm].equals("O")) {
+        
+           if (!verificaObjetivo()) {
+                System.out.println("Sucessso!!");
+            }
             repreAmbiente[line][colunm] = "+";
 
             if (x == 1) {
                 if (line - 1 >= 0 && colunm - 1 >= 0) {
                     if (!repreAmbiente[line - 1][colunm - 1].equals("x")) {
                         repreAmbiente[line - 1][colunm - 1] = "A";
-                        repreAmbiente[line][colunm] = "_";
+                                      line =line - 1;
+                                       colunm=colunm - 1;
                     }
                 }
             }
@@ -50,7 +55,7 @@ public class Agente {
                 if (line - 1 >= 0) {
                     if (!repreAmbiente[line - 1][colunm].equals("x")) {
                         repreAmbiente[line - 1][colunm] = "A";
-                        repreAmbiente[line][colunm] = "_";
+                                       line= line-1;
                     }
                 }
             }
@@ -59,7 +64,9 @@ public class Agente {
                 if (colunm + 1 < maxColunm - 1 && line - 1 >= 0) {
                     if (!repreAmbiente[line - 1][colunm + 1].equals("x")) {
                         repreAmbiente[line - 1][colunm + 1] = "A";
-                        repreAmbiente[line][colunm] = "_";
+                                    line = line -1;
+                                    colunm = colunm+1;
+                      
                     }
                 }
             }
@@ -68,7 +75,8 @@ public class Agente {
                 if (colunm - 1 >= 0) {
                     if (!repreAmbiente[line][colunm - 1].equals("x")) {
                         repreAmbiente[line][colunm - 1] = "A";
-                        repreAmbiente[line][colunm] = "_";
+                          colunm = colunm-1;
+              
                     }
                 }
             }
@@ -77,7 +85,8 @@ public class Agente {
                 if (colunm + 1 <= maxColunm - 1) {
                     if (!repreAmbiente[line][colunm + 1].equals("x")) {
                         repreAmbiente[line][colunm + 1] = "A";
-                        repreAmbiente[line][colunm] = "_";
+                        line = line+1;
+             
                     }
                 }
             }
@@ -86,7 +95,8 @@ public class Agente {
                 if (colunm - 1 >= 0 && line + 1 <= maxLine - 1) {
                     if (!repreAmbiente[line + 1][colunm - 1].equals("x")) {
                         repreAmbiente[line + 1][colunm - 1] = "A";
-                        repreAmbiente[line][colunm] = "_";
+                            line = line+1;
+                            colunm = colunm-1;
                     }
                 }
             }
@@ -95,7 +105,7 @@ public class Agente {
                 if (line + 1 <= maxLine - 1) {
                     if (!repreAmbiente[line + 1][colunm].equals("x")) {
                         repreAmbiente[line + 1][colunm] = "A";
-                        repreAmbiente[line][colunm] = "_";
+                             line = line+1;
                     }
                 }
             }
@@ -104,17 +114,16 @@ public class Agente {
                 if (colunm + 1 <= maxColunm - 1 && line + 1 <= maxLine - 1) {
                     if (!repreAmbiente[line + 1][colunm + 1].equals("x")) {
                         repreAmbiente[line + 1][colunm + 1] = "A";
-                        repreAmbiente[line][colunm] = "_";
+                             line = line+1;
+                             colunm = colunm+1;
                     }
                 }
             }
-            lerPos();
-            if (repreAmbiente[line][colunm].equals("O")) {
+        
+            if (!verificaObjetivo()) {
                 System.out.println("Sucessso!!");
             }
-        } else {
-            System.out.println("Sucessso!!");
-        }
+      
 
         return lerPos();
 
@@ -127,7 +136,7 @@ public class Agente {
         int maxLine = repreAmbiente.length;
         int maxColunm = repreAmbiente[0].length;
 
-        if (!repreAmbiente[line][colunm].equals("O")) {
+      
             repreAmbiente[line][colunm] = "+";
 
             if (acao == 1) {
@@ -201,12 +210,8 @@ public class Agente {
                 }
             }
             lerPos();
-            if (repreAmbiente[line][colunm].equals("O")) {
-                System.out.println("Sucessso!!");
-            }
-        } else {
-            System.out.println("Sucessso!!");
-        }
+
+       
 
         return lerPos();
 
@@ -418,6 +423,18 @@ public class Agente {
         movaAgente(way.get(0));
         way.remove(0);
         }
+    }
+    public void setPosicaoObjetivo(int lineObjetivo, int columnObjectivo){
+      this.lineObjetivo =lineObjetivo;
+      this.columnObjectivo=columnObjectivo;
+    
+    }
+    
+    public boolean verificaObjetivo(){
+        if(colunm!=columnObjectivo&& line!=lineObjetivo)
+            return true;
+        else
+            return false;
     }
 
     public Vector<Integer> getWay() {
